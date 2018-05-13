@@ -4,12 +4,13 @@ from classes.cube import Cube
 from time import time
 from copy import deepcopy
 
-class SnakeSolver:
+class SnakeBruteForceSolver:
     def __init__(self):
         self.ruled_out = 0
         self.previous_time = time() - 5
         self.longest_combo = []
         self.max_combo = 4 ** 46
+        self.start_time = time()
 
     def solveSnake(self, snake_sections):
         self.recursivelySolveSnake(Cube(), list(reversed(snake_sections)), Direction.away, [])
@@ -17,6 +18,7 @@ class SnakeSolver:
     def recursivelySolveSnake(self, cube, snake_sections, direction, directions_so_far):
         current_time = time()
         if self.previous_time < current_time - 5:
+            print(f"We've been running for ~{round((time() - self.start_time) / 60.0)} minute(s)")
             print(f"There are this many combinations possible: {self.max_combo}")
             print(f"We have ruled out this many combinations!: {self.ruled_out}")
             print(f"We need 46 twists")
